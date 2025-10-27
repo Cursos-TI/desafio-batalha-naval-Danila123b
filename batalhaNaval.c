@@ -66,31 +66,88 @@ int main() {
         }
         printf("\n");
     }
-    
-    //Fim do nivel aventureiro
+    //Habilidades especias
 
-    
+    int cone [5][5];
+    int cruz [5][5];
+    int octaedro[5][5];
 
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
+    //Habilidade do cone 
+     for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            if (j >= 2 - i && j <= 2 + i)
+                cone[i][j] = 1;
+            else
+                cone[i][j] = 0;
+        }
+    }
+    // Habilidade da cruz
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            if (i == 2 || j == 2)
+                cruz[i][j] = 1;
+            else
+                cruz[i][j] = 0;
+        }
+    }
+    //Habilidade octaedro
+     for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            if (abs(i - 2) + abs(j - 2) <= 2)
+                octaedro[i][j] = 1;
+            else
+                octaedro[i][j] = 0;
+        }
+    }
+    //Definir pontos no tabuleiro
+    int origemConeLinha = 1, origemConeColuna = 4;
+    int origemCruzLinha = 6, origemCruzColuna = 2;
+    int origemOctaLinha = 7, origemOctaColuna = 7;
 
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
-    
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
+    //Cone
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            int linha = origemConeLinha + i - 2;
+            int coluna = origemConeColuna + j - 2;
 
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
+            if (linha >= 0 && linha < 10 && coluna >= 0 && coluna < 10) {
+                if (cone[i][j] == 1 && tabuleiro[linha][coluna] == 0)
+                    tabuleiro[linha][coluna] = 5;
+            }
+        }
+    }
+    //Cruz
+     for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            int linha = origemCruzLinha + i - 2;
+            int coluna = origemCruzColuna + j - 2;
+
+            if (linha >= 0 && linha < 10 && coluna >= 0 && coluna < 10) {
+                if (cruz[i][j] == 1 && tabuleiro[linha][coluna] == 0)
+                    tabuleiro[linha][coluna] = 5;
+            }
+        }
+    }
+    //Octaedro
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            int linha = origemOctaLinha + i - 2;
+            int coluna = origemOctaColuna + j - 2;
+
+            if (linha >= 0 && linha < 10 && coluna >= 0 && coluna < 10) {
+                if (octaedro[i][j] == 1 && tabuleiro[linha][coluna] == 0)
+                    tabuleiro[linha][coluna] = 5;
+            }
+        }
+    }
+    //Exibir tabuleiro com habilidades
+    printf("\nTabuleiro Com Habilidades Especiais\n\n");
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            printf("%d ", tabuleiro[i][j]);
+        }
+        printf("\n");
+    }
 
     return 0;
 }
